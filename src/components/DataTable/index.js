@@ -8,7 +8,7 @@ export default function DataTable({data, onUpdate, onDelete}){
     return(
         <Grid container lg={12}>
             <Grid item lg={12} align="center">
-                Data Table
+                Show Table
             </Grid>
             <Grid item lg={12}>
                 <TableContainer>
