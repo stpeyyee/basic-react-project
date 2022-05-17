@@ -10,13 +10,15 @@ export default function ShowDataPage(){
             id: 1,
             firstName: "abcd",
             lastName: "abcd",
-            email: "abc@gmail.com"
+            email: "abc@gmail.com",
+            checked: false,
         },
         {
             id: 2,
             firstName: "abcd",
             lastName: "abcd",
-            email: "hij@gmail.com"
+            email: "hij@gmail.com",
+            checked: false,
         },
     ])
 
@@ -43,10 +45,22 @@ export default function ShowDataPage(){
         console.log("delete data", upDateData)
     },[data, setData])
 
+    
+    const handleCheckData = useCallback((id) => {
+        let index = data.findIndex(d=>d.id === id)
+        if(index !== -1){
+            let upDateData = [...data.slice(0, index), {...data[index], checked: !data[index].checked}, ...data.slice(index+1)]
+            setData(upDateData)
+            // update check list
+            setCheckedList(...upDateData.filter(d=>d.checked === true))
+            console.log("checked data", upDateData.filter(d=>d.checked === true))
+        }
+    }, [data, setData, setCheckedList])
+
     return(
         <>
         <AddData handleAddData={handleAddData}></AddData>
-        <DataTable data={data} onUpdate={handleUpdateData} onDelete={handleDeleteData}></DataTable>
+        <DataTable data={data} onUpdate={handleUpdateData} onDelete={handleDeleteData} onChecked={handleCheckData}></DataTable>
         </>
     )
 }

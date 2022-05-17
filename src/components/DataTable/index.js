@@ -3,7 +3,7 @@ import { TableContainer, Table, TableRow, TableHead, TableBody, TableCell, Grid,
 import { style } from '../../styles/style'
 const useStyles = style
 
-export default function DataTable({data, onUpdate, onDelete}){
+export default function DataTable({data, onUpdate, onDelete, onChecked}){
     const classes = useStyles()
     return(
         <Grid container lg={12}>
@@ -15,6 +15,9 @@ export default function DataTable({data, onUpdate, onDelete}){
                     <Table size="small" stickyHeader style={{border: '1px solid gray'}}>
                         <TableHead>
                             <TableRow key={"header"}>
+                                <TableCell>
+                                    Checked
+                                </TableCell>
                                 <TableCell>
                                     First Name
                                 </TableCell>
@@ -34,6 +37,13 @@ export default function DataTable({data, onUpdate, onDelete}){
                             {data.map((obj) => {
                                 return(
                                 <TableRow key={obj.id}>
+                                    <TableCell>
+                                    <Checkbox
+                                        checked={obj.checked}
+                                        onChange={()=>onChecked(obj.id)}
+                                        inputProps={{ 'aria-label': 'controlled' }}
+                                    />
+                                    </TableCell>
                                     <TableCell>
                                         {obj.firstName}
                                     </TableCell>
